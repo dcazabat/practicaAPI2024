@@ -1,10 +1,4 @@
-# Trabajo Practico de los Alumnos de 2do año ISFDyT
-
-
-[emoji]: Crearé el enunciado considerando los objetivos principales: uso de FastAPI, SQLAlchemy y SQLite para CRUD.**
-
----
-
+# Alumnos de 2do año ISFDyT
 # Trabajo Práctico: Implementación de una API con FastAPI y SQLite
 
 ## Objetivo
