@@ -54,5 +54,3 @@ La base de datos debe almacenar la siguiente información sobre los libros:
 - Ejemplo de uso de cada uno de los endpoints con herramientas como **Postman**
 
 ---
-
-🧙🏾‍♂️: Este enunciado cubre los elementos clave: conexión a SQLite, uso de SQLAlchemy para manejar la base de datos, y los endpoints básicos en FastAPI. ¿Te gustaría agregar más detalles, como validación de datos o autenticación básica?
