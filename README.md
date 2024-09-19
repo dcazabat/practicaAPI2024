@@ -45,6 +45,6 @@ La base de datos debe almacenar la siguiente información sobre los libros:
 - Código fuente de la API. en una rama de este repositorio creda a partir de "main" con su apellido y nombre
 - Se debera realizar "commit" paso a paso, como minimo 10, por ejemplo (Creacion de Entidad, DTO, Rutas, Servicios)
 - Instrucciones para ejecutar la API y la base de datos.
-- Ejemplo de uso de cada uno de los endpoints con herramientas como **Postman**
+- Ejemplo de uso de cada uno de los endpoints con **Postman**
 
 ---
