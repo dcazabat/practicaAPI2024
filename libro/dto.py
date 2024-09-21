@@ -2,7 +2,7 @@
 from pydantic import BaseModel, Field
 from datetime  import date
 
-class CreateUser(BaseModel):
+class CreateLibro(BaseModel):
     titulo: str = Field(..., description="Titulo del Libro", example="Amate a ti mismo")
     autor: str = Field(..., description="Nombre del autor", example="Louise Hay")
     publicado_en: date= Field(..., description="Fecha de lanzamiento", example="18-06-2012")
@@ -36,7 +36,7 @@ class LibroDTO(BaseModel):
             }
         }
             
-class UpdateUserDTO(BaseModel):
+class UpdateLibroDTO(BaseModel):
     titulo: str = Field(..., description="Titulo del libro", example="Amate a ti mismo")
     autor: str = Field(..., description="Nombre del Autor", example="Louise Hay")
     isbn: str = Field(..., description="Identificador unico", example="9780937611692")

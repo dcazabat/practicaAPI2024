@@ -1,7 +1,7 @@
 # Contiene todas las funciones que manejan la logica de Negocio (QUE ACCIONES REALIZO con la BD)
 from libro.entity import User
 from config.cnx import sessionlocal
-from user.dto import CreateUser, DeleteUserDTO, UpdateUserDTO, UserDTO
+from libro.dto import CreateLibro, DeleteLibroDTO, UpdateLibroDTO, LibroDTO
 
 # Devuelve todos los Usuarios Activos
 def getUsers():
