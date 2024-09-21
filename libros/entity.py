@@ -1,7 +1,7 @@
 from default.defaultmodel import Base
 from sqlalchemy import Column, Integer, String, Boolean, Date
 
-class libro(Base):
+class Libro(Base):
     __tablename__ = 'libros'
     id = Column(Integer, primary_key=True)
     titulo = Column(String(50), nullable=False)
