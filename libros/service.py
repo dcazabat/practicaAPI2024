@@ -1,6 +1,6 @@
 from config.cnx import sessionlocal
-from entity import Libro
-from dto import CreateLibro,DeleteLibroDTO,UpdateLibro,LibroDTO
+from libros.entity import Libro
+from libros.dto import CreateLibro,DeleteLibroDTO,UpdateLibro,LibroDTO
 
 def getLibros():
     try:
