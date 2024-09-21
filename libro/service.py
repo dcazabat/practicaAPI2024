@@ -1,101 +1,95 @@
 # Contiene todas las funciones que manejan la logica de Negocio (QUE ACCIONES REALIZO con la BD)
-from libro.entity import User
+from libro.entity import Libro
 from config.cnx import sessionlocal
 from libro.dto import CreateLibro, DeleteLibroDTO, UpdateLibroDTO, LibroDTO
 
-# Devuelve todos los Usuarios Activos
-def getUsers():
+def getLibros():
     try:
         db = sessionlocal()
-        users = db.query(User).filter(User.deleted == False).all()
-        if users:
-            return users
+        libro = db.query(Libro).filter(Libro.delete == False).all()
+        if libro:
+            return libro 
         return None
-    except Exception as e:
-        return f'Ocurrio un error, {e}'
+    except Exception as ex:
+        return f'Ups algo anda mal,{ex}'
+    finally: 
+        db.close()
+    
+def getLibrosInactive():
+    try:
+        db = sessionlocal()
+        libro = db.query(Libro).filter(Libro.delete == True).all()
+        if libro:
+            return libro 
+        return None
+    except Exception as ex:
+        return f'Ups algo anda mal,{ex}'
+    finally: 
+        db.close()
+
+def getLibro(id:int):
+    try:
+        db = sessionlocal()
+        libro = db.query(Libro).filter(Libro.id == id).firts()
+        if libro:
+            return libro 
+        return None
+    except Exception as ex:
+        return f'Ups algo anda mal,{ex}'
     finally:
         db.close()
 
-# Devuelve todos los Usuarios Inactivos
-def getUsersInactive():
+def createLibro(libro:CreateLibro):
     try:
         db = sessionlocal()
-        users = db.query(User).filter(User.deleted == True).all()
-        if users:
-            return users
-        return None
-    except Exception as e:
-        return f'Ocurrio un error, {e}'
-    finally:
-        db.close()
-
-# Devuelve los datos del Usuario Inactivo o Activo
-def getUser(id: int):
-    try:
-        db = sessionlocal()
-        user = db.query(User).filter(User.id == id).first()
-        if user:
-            return user
-        return None
-    except Exception as e:
-        return f'Ocurrio un error, {e}'
-    finally:
-        db.close()
-
-# Crea un Usuario dentro de la Base de Datos (POST)
-def createUser(user: CreateUser):
-    try:
-        db = sessionlocal()
-        user_new = User(
-            name = user.name,
-            firstname = user.firstname,
-            lastname = user.lastname,
-            email = user.email,
-            password = user.password
+        libro_new = Libro(
+            titulo = libro.titulo,
+            autor = libro.autor,
+            publicado_en = libro.publicado_en,
+            isbn = libro.isbn,
+        
         )
-        db.add(user_new)
+        db.add(libro_new)
         db.commit()
-        db.refresh(user_new)
+        db.refresh(libro_new)
         db.close()
-        return user_new
-    except Exception as e:
+        return libro_new
+    except Exception as ex:
         db.rollback()
-        return f'Ocurrio un error, {e}'
+        return f'Ups algo anda mal, {ex}'
     finally:
         db.close()
 
-# Actualizacion de Datos del Usuario        
-def updateUser(userupdate: UpdateUserDTO, id: int):
+def updateLibro(libroupdate: UpdateLibroDTO, id: int):
     try:
         db = sessionlocal()
-        user_update = db.query(User).filter(User.id == int(id)).first()
-        if user_update:
-            user_update.firstname = userupdate.firstname
-            user_update.lastname = userupdate.lastname
-            user_update.email = userupdate.email
-            db.commit()
-            db.refresh(user_update)
-            return user_update
+        libro_update = db.query(Libro).filter(Libro.id == int(id)).first()
+        if libro_update:
+            libro_update.titulo = libroupdate.titulo
+            libro_update.autor = libroupdate.autor
+            libro_update.isbn = libroupdate.isbn
+            return libro_update
         return None
-    except Exception as e:
-        db.rollback()
-        return f'Ocurrio un error, {e}'
+    except Exception as ex:
+            db.rollback()
+            return f'Ups, algo anda mal, {ex}'
     finally:
-        db.close()
+            db.close()
 
-# Borrado LOGICO de Datos de Usuario 
-def deleteUser(userdelete: DeleteUserDTO):
+def deleteLibro(librodelete: DeleteLibroDTO):
     try:
         db = sessionlocal()
-        user_delete = db.query(User).filter(User.id == userdelete.id).first()
-        if user_delete:
-            user_delete.deleted = userdelete.deleted
+        libro_delete = db.query(Libro).filter(Libro.id == librodelete.id).first()
+        if libro_delete:
+            libro_delete.delete = librodelete.delete
             db.commit()
-            db.refresh(user_delete)
-            return user_delete
+            db.refresh(libro_delete)
+            return libro_delete
         return None
-    except Exception as e:
+    except Exception as ex:
         db.rollback()
-        return f'Ocurrio un error, {e}'
+        return f'Ups, algo anda mal, {ex}'
     finally:
         db.close()
+    
+        
