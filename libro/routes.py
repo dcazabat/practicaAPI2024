@@ -29,7 +29,7 @@ def get_libro(id: int):
         raise HTTPException(detail=f'Ups, hubo un error al recuperar Libro: {ex}', status_code=500)
 
 
-@libro.post('/', response_model=LibroDTO, status_code=201, summary="Crear un nuevo libro", description="Crea un nuevo libro con datos proporcionados", tags=["Libros"], responses={201: {"description": "¡Bravo, libro creado con éxito!"}, 404: {"description": "Ups, usuario no encontrado"}, 500: {"description": "Error interno del servidor"}})
+@libro.post('/', response_model=LibroDTO, status_code=201, summary="Crear un nuevo libro", description="Crea un nuevo libro con datos proporcionados", tags=["Libros"], responses={201: {"description": "¡Bravo, libro creado con éxito!"}, 404: {"description": "Ups, libro no encontrado"}, 500: {"description": "Error interno del servidor"}})
 def create(libropost: CreateLibro):
     try:
         libro_new = createLibro(libro=libropost)
