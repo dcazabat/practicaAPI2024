@@ -5,7 +5,7 @@ default = APIRouter()
 
 @default.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Bienvenidos"}
 
 @default.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
