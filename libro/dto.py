@@ -5,7 +5,7 @@ from datetime  import date
 class CreateLibro(BaseModel):
     titulo: str = Field(..., description="Titulo del Libro", example="Amate a ti mismo")
     autor: str = Field(..., description="Nombre del autor", example="Louise Hay")
-    publicado_en: date= Field(..., description="Fecha de lanzamiento", example="18-06-2012")
+    publicado_en: date= Field(..., description="Fecha de lanzamiento", example="2012-06-18")
     isbn: str = Field(..., description="Identificador unico", example="9780937611692")
 
     class Config:
@@ -13,7 +13,7 @@ class CreateLibro(BaseModel):
             "example": {
                 "titulo": "Amate a ti mismo",
                 "autor": "Louise Hay",
-                "publicado_en": "18-06-2012",
+                "publicado_en": "2012-06-18",
                 "isbn": "9780937611692",
             }
         }
