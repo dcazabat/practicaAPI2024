@@ -1,101 +1,101 @@
-# Contiene todas las funciones que manejan la logica de Negocio (QUE ACCIONES REALIZO con la BD)
-from user.entity import User
+from sqlalchemy.orm import Session
+from uuid import UUID
+from libro.entity import Libro  
+from libro.dto import CreateLibroDTO, UpdateLibroDTO, DeleteLibroDTO, LibroDTO  
 from config.cnx import sessionlocal
-from user.dto import CreateUser, DeleteUserDTO, UpdateUserDTO, UserDTO
 
-# Devuelve todos los Usuarios Activos
-def getUsers():
+# Devuelve todos los libros activos (no eliminados)
+def getLibros():
     try:
-        db = sessionlocal()
-        users = db.query(User).filter(User.deleted == False).all()
-        if users:
-            return users
+        db: Session = sessionlocal()
+        libros = db.query(Libro).filter(Libro.deleted == False).all()
+        if libros:
+            return libros
         return None
     except Exception as e:
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
 
-# Devuelve todos los Usuarios Inactivos
-def getUsersInactive():
+# Devuelve todos los libros eliminados lógicamente
+def getLibrosInactivos():
     try:
-        db = sessionlocal()
-        users = db.query(User).filter(User.deleted == True).all()
-        if users:
-            return users
+        db: Session = sessionlocal()
+        libros = db.query(Libro).filter(Libro.deleted == True).all()
+        if libros:
+            return libros
         return None
     except Exception as e:
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
 
-# Devuelve los datos del Usuario Inactivo o Activo
-def getUser(id: int):
+# Devuelve los detalles de un libro por su ID
+def getLibro(libro_id: UUID):
     try:
-        db = sessionlocal()
-        user = db.query(User).filter(User.id == id).first()
-        if user:
-            return user
+        db: Session = sessionlocal()
+        libro = db.query(Libro).filter(Libro.id == libro_id).first()
+        if libro:
+            return libro
         return None
     except Exception as e:
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
 
-# Crea un Usuario dentro de la Base de Datos (POST)
-def createUser(user: CreateUser):
+# Crea un nuevo libro
+def createLibro(libro: CreateLibroDTO):
     try:
-        db = sessionlocal()
-        user_new = User(
-            name = user.name,
-            firstname = user.firstname,
-            lastname = user.lastname,
-            email = user.email,
-            password = user.password
+        db: Session = sessionlocal()
+        nuevo_libro = Libro(
+            titulo=libro.titulo,
+            autor=libro.autor,
+            publicado_en=libro.publicado_en,
+            isbn=libro.isbn
         )
-        db.add(user_new)
+        db.add(nuevo_libro)
         db.commit()
-        db.refresh(user_new)
-        db.close()
-        return user_new
+        db.refresh(nuevo_libro)
+        return nuevo_libro
     except Exception as e:
         db.rollback()
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
 
-# Actualizacion de Datos del Usuario        
-def updateUser(userupdate: UpdateUserDTO, id: int):
+# Actualiza los detalles de un libro existente por su ID
+def updateLibro(libro_actualizado: UpdateLibroDTO, libro_id: UUID):
     try:
-        db = sessionlocal()
-        user_update = db.query(User).filter(User.id == int(id)).first()
-        if user_update:
-            user_update.firstname = userupdate.firstname
-            user_update.lastname = userupdate.lastname
-            user_update.email = userupdate.email
+        db: Session = sessionlocal()
+        libro = db.query(Libro).filter(Libro.id == libro_id).first()
+        if libro:
+            libro.titulo = libro_actualizado.titulo
+            libro.autor = libro_actualizado.autor
+            libro.publicado_en = libro_actualizado.publicado_en
+            libro.isbn = libro_actualizado.isbn
             db.commit()
-            db.refresh(user_update)
-            return user_update
+            db.refresh(libro)
+            return libro
         return None
     except Exception as e:
         db.rollback()
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
 
-# Borrado LOGICO de Datos de Usuario 
-def deleteUser(userdelete: DeleteUserDTO):
+# Borrado lógico de un libro por su ID (marcar como eliminado)
+def deleteLibro(libro_borrar: DeleteLibroDTO):
     try:
-        db = sessionlocal()
-        user_delete = db.query(User).filter(User.id == userdelete.id).first()
-        if user_delete:
-            user_delete.deleted = userdelete.deleted
+        db: Session = sessionlocal()
+        libro = db.query(Libro).filter(Libro.id == libro_borrar.id).first()
+        if libro:
+            libro.deleted = libro_borrar.deleted
             db.commit()
-            db.refresh(user_delete)
-            return user_delete
+            db.refresh(libro)
+            return libro
         return None
     except Exception as e:
         db.rollback()
-        return f'Ocurrio un error, {e}'
+        return f"Ocurrió un error: {e}"
     finally:
         db.close()
