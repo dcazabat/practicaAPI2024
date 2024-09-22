@@ -4,8 +4,7 @@ from config.cnx import engine
 
 # Ruotes
 from default.routes import default
-from libro.routes import libros
-
+from libro.routes import router as libro_router
 
 app = FastAPI(
     title="API Rest FastAPI",
@@ -23,6 +22,6 @@ app = FastAPI(
 
 # Ruotes Apps
 app.include_router(default, prefix='', tags=['App Routes Default'])
-app.include_router(libros, prefix='/libros', tags=['libros'])
+app.include_router(libro_router, prefix='/libro', tags=['libro'])
 
 Base.metadata.create_all(bind=engine)
