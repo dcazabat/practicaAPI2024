@@ -4,8 +4,8 @@ from config.cnx import engine
 
 # Ruotes
 from default.routes import default
-from user.routes import user
-from task.routes import task
+from libro.routes import libros
+
 
 app = FastAPI(
     title="API Rest FastAPI",
@@ -23,7 +23,6 @@ app = FastAPI(
 
 # Ruotes Apps
 app.include_router(default, prefix='', tags=['App Routes Default'])
-app.include_router(user, prefix='/users', tags=['Usuarios'])
-app.include_router(task, prefix='/task', tags=['Tareas'])
+app.include_router(libros, prefix='/libros', tags=['libros'])
 
 Base.metadata.create_all(bind=engine)
