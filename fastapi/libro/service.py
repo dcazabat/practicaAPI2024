@@ -2,12 +2,12 @@ from sqlalchemy.orm import Session
 from uuid import UUID
 from libro.entity import Libro  
 from libro.dto import CreateLibroDTO, UpdateLibroDTO, DeleteLibroDTO, LibroDTO  
-from config.cnx import sessionlocal
+from config.cnx import SessionLocal 
 
 # Devuelve todos los libros activos (no eliminados)
 def getLibros():
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         libros = db.query(Libro).filter(Libro.deleted == False).all()
         if libros:
             return libros
@@ -20,7 +20,7 @@ def getLibros():
 # Devuelve todos los libros eliminados lógicamente
 def getLibrosInactivos():
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         libros = db.query(Libro).filter(Libro.deleted == True).all()
         if libros:
             return libros
@@ -33,7 +33,7 @@ def getLibrosInactivos():
 # Devuelve los detalles de un libro por su ID
 def getLibro(libro_id: UUID):
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         libro = db.query(Libro).filter(Libro.id == libro_id).first()
         if libro:
             return libro
@@ -46,7 +46,7 @@ def getLibro(libro_id: UUID):
 # Crea un nuevo libro
 def createLibro(libro: CreateLibroDTO):
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         nuevo_libro = Libro(
             titulo=libro.titulo,
             autor=libro.autor,
@@ -66,7 +66,7 @@ def createLibro(libro: CreateLibroDTO):
 # Actualiza los detalles de un libro existente por su ID
 def updateLibro(libro_actualizado: UpdateLibroDTO, libro_id: UUID):
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         libro = db.query(Libro).filter(Libro.id == libro_id).first()
         if libro:
             libro.titulo = libro_actualizado.titulo
@@ -86,7 +86,7 @@ def updateLibro(libro_actualizado: UpdateLibroDTO, libro_id: UUID):
 # Borrado lógico de un libro por su ID (marcar como eliminado)
 def deleteLibro(libro_borrar: DeleteLibroDTO):
     try:
-        db: Session = sessionlocal()
+        db: Session = SessionLocal()
         libro = db.query(Libro).filter(Libro.id == libro_borrar.id).first()
         if libro:
             libro.deleted = libro_borrar.deleted
