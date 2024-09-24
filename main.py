@@ -7,11 +7,11 @@ from libro.routes import libro
 
 app = FastAPI(
     title="API Rest FastAPI",
-    description="Ejemplo de API Rest con FASTAPI",
+    description="Trabajo práctico FASTAPI & SQLITE",
     version="0.0.1",
         contact={
-        "name": "Soporte Técnico",
-        "email": "soporte@miempresa.com",
+        "name": "Gaspar Clavin",
+        "email": "gaspar@clavin.com",
     },
     license_info={
         "name": "MIT",

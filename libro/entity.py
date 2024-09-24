@@ -1,7 +1,6 @@
 from default.defaultmodel import Base
 import uuid
-from sqlalchemy import Column, String, Date, Boolean
-from sqlalchemy.dialects.sqlite import UUID
+from sqlalchemy import Column, String, Date, Boolean, UUID
 
 class Libro(Base):
     __tablename__ = "libros"
