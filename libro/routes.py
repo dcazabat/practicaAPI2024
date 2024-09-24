@@ -45,3 +45,13 @@ def updateLibro(libroupdate: UpdateLibroDTO, id: int):
         return JSONResponse(content='Libro no actualizado', status_code=404)
     except Exception as e:
         raise HTTPException(detail=f'Error al actualizar el libro: {e}', status_code=500)
+
+@libro.delete('/', response_model=LibroDTO, status_code=200, summary="Eliminar un libro", description="Elimina un libro existente del sistema.", tags=["Libros"])
+def deleteLibro(librodelete: DeleteLibroDTO):
+    try:
+        libro_delete = delete_libro(librodelete=librodelete)
+        if libro_delete:
+            return libro_delete
+        return JSONResponse(content='Usuario no eliminado', status_code=404)
+    except Exception as e:
+        raise HTTPException(detail=f'Error al eliminar el libro: {e}', status_code=500)
