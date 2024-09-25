@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-STRCNX_local="sqlite:///basedb.db"
+STRCNX_local="sqlite:///libros.db"
 
 ENGINE=os.getenv('ENGINE')
 HOST=os.getenv('HOST')
