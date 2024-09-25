@@ -27,6 +27,15 @@ class LibroService:
             self.session.commit()
             return libro
         return None
+    
+    def eliminar_libro(self, libro_id: str):
+        libro = self.obtener_libro_por_id(libro_id)
+        if libro:
+            self.session.delete(libro)
+            self.session.commit()
+            return True
+        return False
+
 
 
 
