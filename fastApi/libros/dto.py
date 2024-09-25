@@ -13,7 +13,6 @@ class LibroDTO(BaseModel):
     titulo : str
     autor : str
     publicado_en : date
-    user_id : int
     
 class UpdateLibroDTO(BaseModel):
     titulo : str
