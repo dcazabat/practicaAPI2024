@@ -56,7 +56,7 @@ def update_libro(libro_id: UUID, libro_data: UpdateLibroDTO):
             db.commit()
             db.refresh(libro_to_update)
             return libro_to_update
-        return None  
+        return None 
     except Exception as e:
         db.rollback()
         return f"Ocurrió un error al actualizar el libro: {e}"
@@ -68,7 +68,7 @@ def delete_libro(libro_id: UUID):
         db: Session = sessionlocal()
         libro_to_delete = db.query(Libro).filter(Libro.id == libro_id, Libro.deleted == False).first()
         if libro_to_delete:
-            libro_to_delete.deleted = True 
+            libro_to_delete.deleted = True  
             db.commit()
             return {"message": "Libro eliminado correctamente."}
         return None  

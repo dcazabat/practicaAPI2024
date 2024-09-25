@@ -37,21 +37,21 @@ def createLibro(libropost: CreateLibro):
         raise HTTPException(detail=f'Error al crear libro: {e}', status_code=500)
     
 @libro.put('/{id}', response_model=LibroDTO, status_code=200, summary="Actualizar un libro", description="Actualiza la información de un libro existente en el sistema.", tags=["Libros"])
-def updateLibro(libroupdate: UpdateLibroDTO, id: int):
+def updateLibro(id: UUID, libroupdate: UpdateLibroDTO):
     try:
-        libro_update = update_libro(libroupdate=libroupdate, id=id)
+        libro_update = update_libro(libro_id=id, libro_data=libroupdate)
         if libro_update:
             return libro_update
         return JSONResponse(content='Libro no actualizado', status_code=404)
     except Exception as e:
         raise HTTPException(detail=f'Error al actualizar el libro: {e}', status_code=500)
 
-@libro.delete('/', response_model=LibroDTO, status_code=200, summary="Eliminar un libro", description="Elimina un libro existente del sistema.", tags=["Libros"])
-def deleteLibro(librodelete: DeleteLibroDTO):
+@libro.delete('/{id}', status_code=200, summary="Eliminar un libro", description="Elimina un libro existente del sistema.", tags=["Libros"])
+def deleteLibro(id: UUID):
     try:
-        libro_delete = delete_libro(librodelete=librodelete)
+        libro_delete = delete_libro(libro_id=id)
         if libro_delete:
-            return libro_delete
-        return JSONResponse(content='Usuario no eliminado', status_code=404)
+            return JSONResponse(content=libro_delete, status_code=200)
+        return JSONResponse(content='Libro no eliminado', status_code=404)
     except Exception as e:
         raise HTTPException(detail=f'Error al eliminar el libro: {e}', status_code=500)
