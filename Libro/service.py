@@ -18,5 +18,15 @@ class LibroService:
 
     def obtener_libro_por_id(self, libro_id: str):
         return self.session.query(Libro).filter_by(id=libro_id).first()
+    
+    def actualizar_libro(self, libro_id: str, libro_update: LibroCreate):
+        libro = self.obtener_libro_por_id(libro_id)
+        if libro:
+            for key, value in libro_update.dict().items():
+                setattr(libro, key, value)
+            self.session.commit()
+            return libro
+        return None
+
 
 
