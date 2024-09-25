@@ -6,8 +6,9 @@ from sqlalchemy.orm import relationship
 
 class Libro(Base):
     __tablename__ = 'libros'
-    id = Column(UUID, primary_key=True)
+    id = Column(UUID, as_uuid=True,  primary_key=True)
     titulo = Column(String(50), unique=True, nullable=False)
     autor = Column(String(100), nullable=False)
-    publicado_en = Column(Date(100))
-    isbn = Column(String(100))
+    publicado_en = Column(Date, nullable=True)
+    isbn = Column(String, nullable=True)
+    deleted = Column(Boolean, default=False)
