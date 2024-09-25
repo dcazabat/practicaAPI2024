@@ -79,7 +79,7 @@ def deleteBook(bookdelete: DeleteBookDTO):
             db.commit()
             db.refresh(book_delete)
             return book_delete
-        return None
+        return f'El libro fue eliminado correctamente'
     except Exception as e:
         db.rollback()
         return f'Ocurrio un error, {e}'
