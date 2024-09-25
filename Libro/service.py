@@ -12,5 +12,11 @@ class LibroService:
         self.session.commit()
         self.session.refresh(libro)
         return libro
+    
+    def obtener_libros(self):
+        return self.session.query(Libro).all()
+
+    def obtener_libro_por_id(self, libro_id: str):
+        return self.session.query(Libro).filter_by(id=libro_id).first()
 
 
