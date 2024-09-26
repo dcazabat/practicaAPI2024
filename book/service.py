@@ -49,16 +49,14 @@ def createBook(book: CreateBook):
     finally:
         db.close()
 
-# Actualizacion de datos del libro       
-def updateBook(bookupdate: UpdateBookDTO):
+# Actualizacion de datos de un libro       
+def updateBook(bookupdate: UpdateBookDTO, id: int):
     try:
         db = sessionlocal()
-        book_update = db.query(Book).filter(Book.id == int(bookupdate.id)).first()
+        book_update = db.query(Book).filter(Book.id == id).first()
         if book_update:
             book_update.titulo = bookupdate.titulo
             book_update.autor = bookupdate.autor
-            book_update.publicado_en = bookupdate.publicado_en
-            book_update.isnb = bookupdate.isnb
             db.commit()
             db.refresh(book_update)
             return book_update
@@ -69,11 +67,11 @@ def updateBook(bookupdate: UpdateBookDTO):
     finally:
         db.close()
 
-# Borrado LOGICO de datos de libro
-def deleteBook(bookdelete: DeleteBookDTO):
+# Borrado LOGICO de un libro
+def deleteBook(bookdelete: DeleteBookDTO, id: int):
     try:
         db = sessionlocal()
-        book_delete = db.query(Book).filter(Book.id == bookdelete.id).first()
+        book_delete = db.query(Book).filter(Book.id == id).first()
         if book_delete:
             book_delete.deleted = bookdelete.deleted
             db.commit()

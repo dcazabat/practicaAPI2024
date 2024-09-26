@@ -3,7 +3,7 @@ from default.defaultmodel import Base
 from sqlalchemy import Column, Integer, String, Boolean, Date
 from datetime import datetime
 
-class Books(Base):
+class Book(Base):
     __tablename__ = 'books'
     id = Column(Integer, primary_key=True)
     titulo = Column(String(100), nullable=False)

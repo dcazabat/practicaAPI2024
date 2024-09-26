@@ -15,7 +15,6 @@ class BookDTO(BaseModel):
     isnb : str
     
 class UpdateBookDTO(BaseModel):
-    id: int
     titulo : str
     autor : str
     

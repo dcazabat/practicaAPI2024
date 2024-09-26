@@ -36,7 +36,7 @@ def create(bookpost: CreateBook):
     except Exception as e:
         return HTTPException(detail=f'Error al Crear Libro: {e}', status_code=500)
 
-@book.put('/', response_model=BookDTO, status_code=200)
+@book.put('/{id}', response_model=BookDTO, status_code=200)
 def update(bookupdate: UpdateBookDTO):
     try:
         book_update = updateBook(bookupdate=bookupdate)
@@ -46,7 +46,7 @@ def update(bookupdate: UpdateBookDTO):
     except Exception as e:
         return HTTPException(detail=f'Error al actualizar el Libro: {e}', status_code=500)
 
-@book.delete('/', response_model=BookDTO, status_code=200)
+@book.delete('{id}', response_model=BookDTO, status_code=200)
 def delete(bookdelete: DeleteBookDTO):
     try:
         book_delete = deleteBook(bookdelete=bookdelete) 
