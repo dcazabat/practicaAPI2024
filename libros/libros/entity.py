@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Date, UUID
+from sqlalchemy import Column, String, Date, UUID, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
 
@@ -12,3 +12,4 @@ class Libro(Base):
     autor = Column(String, nullable=False)
     publicado_en = Column(Date, nullable=False)
     isbn = Column(String, nullable=False, unique=True)
+    deleted = Column(Boolean, default= False)
