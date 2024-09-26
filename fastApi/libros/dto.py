@@ -13,7 +13,7 @@ class CreateLibro(BaseModel):
             "example": {
                 "titulo" : "Pinocho",
                 "autor" : "Carlo Collodi",
-                "publicado_en" : "Febrero 1883",
+                "publicado_en" : "1883-02-01",
                 "isbn" : "9780688022679"
             }
         }
@@ -30,7 +30,7 @@ class LibroDTO(BaseModel):
                 "id" : "1",
                 "titulo" : "Pinocho",
                 "autor" : "Carlo Collodi",
-                "publicado_en" : "Febrero 1883"
+                "publicado_en" : "1883-02-01"
             }
         }
     
