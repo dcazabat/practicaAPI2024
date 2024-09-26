@@ -39,38 +39,36 @@ def crear_libro(libros: CreateLibro):
     finally:
         db.close()
 
-def crear_libro(db: Session, titulo: str, autor: str, publicado_en: str, isbn: str):
-    db_libro = Libro(
-        titulo=titulo,
-        autor=autor,
-        publicado_en=publicado_en,
-        isbn=isbn,
-    )
-    db.add(db_libro)
-    db.commit()
-    db.refresh(db_libro)
-    return db_libro
+    
+def actualizar_libro(libro_update: UpdateLibroDTO, id: int):
+    try:
+        db = sessionlocal()
+        libro_update = db.query(Libro).filter(Libro.id == id).first()
+        if libro_update:
+            libro_update.titulo = libro_update.titulo
+            libro_update.autor = libro_update.autor
+            db.commit()
+            db.refresh(libro_update)
+            return libro_update
+        return None
+    except Exception as e:
+        db.rollback()
+        return f'Ocurrio un error, {e}'
+    finally:
+        db.close()
 
-def obtener_libros(db: Session):
-    return db.query(Libro).all()
-
-def obtener_libro_por_id(db: Session, libro_id: uuid.UUID):
-    return db.query(Libro).filter(Libro.id == libro_id).first()
-
-def actualizar_libro(db: Session, libro_id: uuid.UUID, titulo: str, autor: str, publicado_en: str, isbn: str):
-    db_libro = obtener_libro_por_id(db, libro_id)
-    if db_libro:
-        db_libro.titulo = titulo
-        db_libro.autor = autor
-        db_libro.publicado_en = publicado_en
-        db_libro.isbn = isbn
-        db.commit()
-        db.refresh(db_libro)
-    return db_libro
-
-def eliminar_libro(db: Session, libro_id: uuid.UUID):
-    db_libro = obtener_libro_por_id(db, libro_id)
-    if db_libro:
-        db.delete(db_libro)
-        db.commit()
-    return db_libro
+def borrar_libro(libro_delete: DeleteLibroDTO, id: int):
+    try:
+        db = sessionlocal()
+        libro_delete = db.query(Libro).filter(Libro.id == id).first()
+        if libro_delete:
+            libro_delete.deleted = libro_delete.deleted
+            db.commit()
+            db.refresh(libro_delete)
+            return libro_delete
+        return f'El libro fue eliminado correctamente'
+    except Exception as e:
+        db.rollback()
+        return f'Ocurrio un error, {e}'
+    finally:
+        db.close()
