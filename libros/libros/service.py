@@ -5,7 +5,7 @@ from config.cnx import sessionlocal
 from libros.entity import Libro 
 from libros.dto import *
 
-#Trae todos los libros
+# Trae todos los libros
 def get_Libros():
     try:
         db = sessionlocal()
@@ -18,7 +18,21 @@ def get_Libros():
     finally:
         db.close
 
-#Crea un libro 
+# Datos del libro
+def get_Libros(id:int):
+    try:
+        db = sessionlocal()
+        libro = db.query(Libro).filter(Libro.id == id).first()
+        if libro:
+            return libro
+        return None
+    except Exception as e:
+        return f'Ocurrio un error, {e}'
+    finally:
+        db.close()
+
+
+# Crea un libro 
 def crear_libro(libros: CreateLibro):
     try:
         db = sessionlocal()
@@ -39,7 +53,7 @@ def crear_libro(libros: CreateLibro):
     finally:
         db.close()
 
-    
+# Actualizar Libro    
 def actualizar_libro(libro_update: UpdateLibroDTO, id: int):
     try:
         db = sessionlocal()
@@ -57,6 +71,7 @@ def actualizar_libro(libro_update: UpdateLibroDTO, id: int):
     finally:
         db.close()
 
+# Delete Libro
 def borrar_libro(libro_delete: DeleteLibroDTO, id: int):
     try:
         db = sessionlocal()
