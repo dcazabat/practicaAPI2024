@@ -1,4 +1,4 @@
-from libros.config.cnx import SQLALCHEMY_DATABASE_URI
+from config.cnx import SQLALCHEMY_DATABASE_URI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
