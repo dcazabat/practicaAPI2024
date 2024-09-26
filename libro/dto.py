@@ -11,6 +11,7 @@ class CreateLibro(BaseModel):
     class Config:
         schema_extra = {
             "example": {
+                "id":1,
                 "titulo": "Amate a ti mismo",
                 "autor": "Louise Hay",
                 "publicado_en": "2012-06-18",
@@ -29,6 +30,7 @@ class LibroDTO(BaseModel):
     class Config:
         json_schema_extra = {   
             "example": {
+                "id":1,
                 "titulo": "Amate a ti mismo",
                 "autor": "Louise Hay",
                 "publicado_en": "18-06-2012",
@@ -44,7 +46,7 @@ class UpdateLibroDTO(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                # "id": 1,
+                "id": 1,
                 "titulo": "Amate a ti mismo",
                 "autor": "Louise Hay",
                 "isbn": "9780937611692",

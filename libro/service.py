@@ -30,7 +30,7 @@ def getLibrosInactive():
 def getLibro(id:int):
     try:
         db = sessionlocal()
-        libro = db.query(Libro).filter(Libro.id == id).firts()
+        libro = db.query(Libro).filter(Libro.id == id).first()
         if libro:
             return libro 
         return None

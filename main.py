@@ -25,4 +25,5 @@ app.include_router(default, prefix='', tags=['App Routes Default'])
 app.include_router(libro, prefix='/libros', tags=['Libros'])
 
 
-Base.metadata.create_all(bind=engine)
+
+
