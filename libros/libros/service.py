@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 import uuid
 from typing import List
-from config.cnx import sessionlocal
+from libros.config.cnx import sessionlocal
 from libros.entity import Libro 
 from libros.dto import *
 
@@ -19,7 +19,7 @@ def get_Libros():
         db.close
 
 # Datos del libro
-def get_Libros(id:int):
+def obtener_libros(id:int):
     try:
         db = sessionlocal()
         libro = db.query(Libro).filter(Libro.id == id).first()
@@ -72,7 +72,7 @@ def actualizar_libro(libro_update: UpdateLibroDTO, id: int):
         db.close()
 
 # Delete Libro
-def borrar_libro(libro_delete: DeleteLibroDTO, id: int):
+def eliminar_libro(libro_delete: DeleteLibroDTO, id: int):
     try:
         db = sessionlocal()
         libro_delete = db.query(Libro).filter(Libro.id == id).first()

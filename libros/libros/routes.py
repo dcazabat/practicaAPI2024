@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from libros.config.cnx import get_db
-from .crud import crear_libro, obtener_libros, obtener_libro, actualizar_libro, eliminar_libro
+from config.cnx import get_db
+from service import crear_libro, obtener_libros, obtener_libros, actualizar_libro, eliminar_libro
 
 router = APIRouter()
 
@@ -14,8 +14,8 @@ def obtener_libros_endpoint(db: Session = Depends(get_db)):
     return obtener_libros(db)
 
 @router.get("/libros/{libro_id}")
-def obtener_libro_endpoint(libro_id: str, db: Session = Depends(get_db)):
-    libro = obtener_libro(db, libro_id)
+def obtener_libros_endpoint(libro_id: str, db: Session = Depends(get_db)):
+    libro = obtener_libros(db, libro_id)
     if libro is None:
         raise HTTPException(status_code=404, detail="Libro no encontrado")
     return libro
