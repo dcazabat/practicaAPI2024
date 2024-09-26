@@ -49,7 +49,7 @@ def createLibro(libro:CreateLibro):
         )
         db.add(libroNew)
         db.commit()
-        db.refresh()
+        db.refresh(libroNew)
         db.close()
         return libroNew
     except Exception as err:
@@ -57,24 +57,23 @@ def createLibro(libro:CreateLibro):
     finally:
         db.close()
 
-def updateLibro(libroUpdate1:UpdateLibro,id:int):
+def updateLibro(libroUpdate1: UpdateLibro, id: int):
     try:
         db = sessionlocal()
         libroUpdate2 = db.query(Libro).filter(Libro.id == id).first() 
         if libroUpdate2:
             libroUpdate2.titulo = libroUpdate1.titulo
+            libroUpdate2.autor = libroUpdate1.autor  
             libroUpdate2.isbn = libroUpdate1.isbn
 
-        db.add(libroUpdate2)
-        db.commit()
-        db.refresh()
-        db.close()
-        return libroUpdate2
+            db.commit()  
+            db.refresh(libroUpdate2)  
+            return libroUpdate2  
+        return None
     except Exception as err:
-        return f'Ah ocurrido un error,{err}'
+        return f'Ah ocurrido un error, {err}'
     finally:
         db.close()
-
 
 def deleteLibro(libroDelete1: DeleteLibroDTO):
     try:
