@@ -8,4 +8,4 @@ class Libro(Base):
     autor = Column(String(50),nullable=False)
     publicado_en = Column(Date, nullable=False)
     isbn = Column(String(30),nullable=False)
-    delete = Column(Boolean,default=False)
+    deleted = Column(Boolean,default=False)

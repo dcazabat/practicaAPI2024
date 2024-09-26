@@ -51,12 +51,12 @@ class UpdateLibro(BaseModel):
         }
 class DeleteLibroDTO(BaseModel):
         id: int = Field(..., description="Id de Usuario", example=1)
-        delete : bool = Field(..., description="Es True o False segun quiera Eliminar o Recuperar", example="True")
+        deleted : bool = Field(..., description="Es True o False segun quiera Eliminar o Recuperar", example="True")
     
         class Config:
             json_schema_extra = {
                 "example": {
                     "id": 1,
-                    "delete": True,
+                    "deleted": True,
                 }
             }

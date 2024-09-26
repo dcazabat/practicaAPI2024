@@ -5,7 +5,7 @@ from libros.dto import CreateLibro,DeleteLibroDTO,UpdateLibro,LibroDTO
 def getLibros():
     try:
         db = sessionlocal()
-        libros = db.query(Libro).filter(Libro.delete == False).all() 
+        libros = db.query(Libro).filter(Libro.deleted == False).all() 
         if libros:
             return libros
         return None
@@ -17,7 +17,7 @@ def getLibros():
 def getLibrosInactive():
     try:
         db = sessionlocal()
-        libros = db.query(Libro).filter(Libro.delete == True).all() 
+        libros = db.query(Libro).filter(Libro.deleted == True).all() 
         if libros:
             return libros
         return None
@@ -81,7 +81,7 @@ def deleteLibro(libroDelete1: DeleteLibroDTO):
         db = sessionlocal()
         libroDelete2 = db.query(Libro).filter(Libro.id == libroDelete1.id).first()
         if libroDelete2:
-            libroDelete2.delete = libroDelete1.delete
+            libroDelete2.deleted = libroDelete1.deleted
             db.commit()
             db.refresh(libroDelete2)
             return libroDelete2
