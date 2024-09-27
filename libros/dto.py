@@ -5,7 +5,7 @@ from typing import Optional
 class CreateLibro(BaseModel):
     titulo : str = Field(..., description="Nombre del Libro", example="Pinocho")
     autor : str = Field(..., description="Nombre del autor del libro", example="Carlo Collodi")
-    publicado_en : date = Field(..., description="Lanzamiento", example="Febrero 1883")
+    publicado_en : date = Field(..., description="Lanzamiento", example="1883-02-01")
     isbn : str = Field(..., description="Codigo de identificacion unico", example="9780688022679")
     
     class Config:
@@ -22,7 +22,7 @@ class LibroDTO(BaseModel):
     id: int = Field(..., description="Id de libro", example="1")
     titulo : str = Field(..., description="Nombre del Libro", example="Pinocho")
     autor : str = Field(..., description="Nombre del autor del libro", example="Carlo Collodi")
-    publicado_en : date = Field(..., description="Lanzamiento", example="Febrero 1883")
+    publicado_en : date = Field(..., description="Lanzamiento", example="1883-02-01")
     
     class Config:
         json_schema_extra = {
